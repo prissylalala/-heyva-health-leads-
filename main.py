@@ -1,8 +1,10 @@
+import argparse
 import csv
 import json
 import logging
 import os
 from background_checker import check_lead
+from lead_finder import find_leads
 import config
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -24,20 +26,26 @@ def load_manual_leads(csv_path: str) -> list[dict]:
                 "linkedin_about": row.get("linkedin_about", "").strip(),
                 "linkedin_posts": [p.strip() for p in row.get("linkedin_posts", "").split("|") if p.strip()],
             }
-            if lead["name"] and lead["company"]:
+            if lead["name"]:
                 leads.append(lead)
             else:
-                logger.warning(f"Skipping lead with missing name or company: {row}")
+                logger.warning(f"Skipping lead with missing name: {row}")
     return leads
 
 
-def run_pipeline():
-    """Run Phase 1: load leads from CSV, run background checks, output raw_leads.json."""
+def run_pipeline(discover: bool = False):
+    """Run Phase 1: optionally discover leads, then run background checks, output raw_leads.json."""
+    # Step 0: Discover leads from LinkedIn if requested
+    if discover:
+        logger.info("Step 0: Discovering leads from LinkedIn...")
+        find_leads()
+        logger.info("Lead discovery complete. Proceeding to background checks.")
+
     # Load leads
     csv_path = config.MANUAL_LEADS_PATH
     if not os.path.exists(csv_path):
         logger.error(f"Manual leads file not found: {csv_path}")
-        logger.info("Create leads_data/manual_leads.csv with columns: name,title,company,industry,linkedin_url,linkedin_about,linkedin_posts")
+        logger.info("Run with --discover flag or create leads_data/manual_leads.csv manually")
         return
 
     leads = load_manual_leads(csv_path)
@@ -72,4 +80,7 @@ def run_pipeline():
 
 
 if __name__ == "__main__":
-    run_pipeline()
+    parser = argparse.ArgumentParser(description="Heyva Health Lead Gen Pipeline")
+    parser.add_argument("--discover", action="store_true", help="Discover leads from LinkedIn before background checks")
+    args = parser.parse_args()
+    run_pipeline(discover=args.discover)
