@@ -14,33 +14,48 @@ logger = logging.getLogger(__name__)
 # Search queries targeting different segments
 SEARCH_QUERIES = [
     {
-        "query": 'site:linkedin.com/in HR Director oil gas company Singapore employee benefits insurance',
+        "query": 'site:id.linkedin.com/in "HR Director" "oil" OR "gas" OR "energy" Indonesia',
         "role": "hr",
         "industry": "Oil & Gas",
     },
     {
-        "query": 'site:linkedin.com/in CFO oil gas company Asia Pacific',
+        "query": 'site:id.linkedin.com/in "CFO" OR "Finance Director" "oil" OR "gas" Indonesia',
         "role": "cfo",
         "industry": "Oil & Gas",
     },
     {
-        "query": 'site:linkedin.com/in HR Director technology company Singapore employee wellness health',
+        "query": 'site:id.linkedin.com/in "HR Director" technology Indonesia "employee wellness" OR "health benefit"',
         "role": "hr",
         "industry": "Technology",
     },
     {
-        "query": 'site:linkedin.com/in CFO technology MNC Singapore health insurance benefits',
+        "query": 'site:id.linkedin.com/in "CFO" technology Indonesia "health insurance" OR "employee benefit"',
         "role": "cfo",
         "industry": "Technology",
     },
     {
-        "query": 'site:linkedin.com/in HR Director MNC Singapore healthcare benefits',
+        "query": 'site:id.linkedin.com/in "HR Director" manufacturing Indonesia "health" OR "benefit"',
         "role": "hr",
-        "industry": "MNC",
+        "industry": "Manufacturing",
     },
     {
-        "query": 'site:linkedin.com/in CFO multinational Singapore insurance employee',
+        "query": 'site:id.linkedin.com/in "CFO" manufacturing Indonesia "insurance" OR "employee"',
         "role": "cfo",
+        "industry": "Manufacturing",
+    },
+    {
+        "query": 'site:id.linkedin.com/in "HR Director" hospitality Indonesia Jakarta Bali',
+        "role": "hr",
+        "industry": "Hospitality",
+    },
+    {
+        "query": 'site:id.linkedin.com/in "HR Director" "real estate" OR "property" Indonesia Jakarta',
+        "role": "hr",
+        "industry": "Real Estate",
+    },
+    {
+        "query": 'site:id.linkedin.com/in "HR Director" OR "People Director" MNC Indonesia Jakarta "wellbeing" OR "wellness"',
+        "role": "hr",
         "industry": "MNC",
     },
 ]
