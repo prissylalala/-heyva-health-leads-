@@ -1,6 +1,6 @@
 # Lead Analysis Instructions
 
-Read `leads_data/raw_leads.json` and analyze each lead. Write the results to `leads_data/analyzed_leads.json`.
+Read `leads_data/indonesia_analyzed.json`. Find any leads that are **missing** `tone_profile` (i.e. new leads not yet analyzed). Analyze only those new leads, then **append** them to the existing array and write the full updated array back to `leads_data/indonesia_analyzed.json`. Do not re-analyze or overwrite leads that already have `tone_profile`.
 
 ## Product Context
 

@@ -71,12 +71,32 @@ def run_pipeline(discover: bool = False):
             lead["data_quality"] = "limited"
             enriched_leads.append(lead)
 
-    # Save output
+    # Merge with existing raw_leads.json — add new leads, don't overwrite existing ones
     os.makedirs(os.path.dirname(config.RAW_LEADS_PATH), exist_ok=True)
+    existing_leads = []
+    if os.path.exists(config.RAW_LEADS_PATH):
+        with open(config.RAW_LEADS_PATH, "r", encoding="utf-8") as f:
+            existing_leads = json.load(f)
+    existing_urls = {l.get("linkedin_url", "") for l in existing_leads}
+    new_leads = [l for l in enriched_leads if l.get("linkedin_url", "") not in existing_urls]
+    merged = existing_leads + new_leads
     with open(config.RAW_LEADS_PATH, "w", encoding="utf-8") as f:
-        json.dump(enriched_leads, f, indent=2, ensure_ascii=False)
+        json.dump(merged, f, indent=2, ensure_ascii=False)
+    logger.info(f"Merged: {len(new_leads)} new leads added, {len(existing_leads)} existing kept. Total: {len(merged)}")
 
-    logger.info(f"Saved {len(enriched_leads)} leads to {config.RAW_LEADS_PATH}")
+    # Also merge into indonesia_analyzed.json so dashboard shows new leads immediately
+    analyzed_path = os.path.join(config.LEADS_DATA_DIR, "indonesia_analyzed.json")
+    existing_analyzed = []
+    if os.path.exists(analyzed_path):
+        with open(analyzed_path, "r", encoding="utf-8") as f:
+            existing_analyzed = json.load(f)
+    existing_analyzed_urls = {l.get("linkedin_url", "") for l in existing_analyzed}
+    new_for_dashboard = [l for l in new_leads if l.get("linkedin_url", "") not in existing_analyzed_urls]
+    if new_for_dashboard:
+        merged_analyzed = existing_analyzed + new_for_dashboard
+        with open(analyzed_path, "w", encoding="utf-8") as f:
+            json.dump(merged_analyzed, f, indent=2, ensure_ascii=False)
+        logger.info(f"Added {len(new_for_dashboard)} new leads to indonesia_analyzed.json (pending Claude analysis)")
 
 
 if __name__ == "__main__":
