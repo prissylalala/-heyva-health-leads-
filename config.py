@@ -13,6 +13,9 @@ SCRAPE_DELAY_SECONDS = (3, 8)
 GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY", "")
 GOOGLE_CSE_ID = os.environ.get("GOOGLE_CSE_ID", "")
 
+# Firecrawl API
+FIRECRAWL_API_KEY = os.environ.get("FIRECRAWL_API_KEY", "fc-652abbe6be484b599ad2d9467cd6a134")
+
 # Paths
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 LEADS_DATA_DIR = os.path.join(BASE_DIR, "leads_data")

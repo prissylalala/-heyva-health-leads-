@@ -1,12 +1,12 @@
 """
 Lead Finder — Discovers HR Directors and CFOs on LinkedIn via web search.
-Uses firecrawl CLI to search and scrape LinkedIn profiles.
+Uses firecrawl Python SDK to search and scrape LinkedIn profiles.
 """
 import json
 import os
-import subprocess
 import logging
 import config
+from firecrawl import FirecrawlApp
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
@@ -61,40 +61,46 @@ SEARCH_QUERIES = [
 ]
 
 
-def run_search(query: str, output_file: str, limit: int = 10) -> dict:
-    """Run a firecrawl search and return results."""
-    cmd = [
-        "firecrawl", "search", query,
-        "--limit", str(limit),
-        "--scrape",
-        "-o", output_file,
-        "--json",
-    ]
+_firecrawl_app = None
+
+def get_firecrawl():
+    global _firecrawl_app
+    if _firecrawl_app is None:
+        _firecrawl_app = FirecrawlApp(api_key=config.FIRECRAWL_API_KEY)
+    return _firecrawl_app
+
+
+def run_search(query: str, output_file: str, limit: int = 10) -> list:
+    """Run a firecrawl search and return list of result dicts."""
     logger.info(f"Searching: {query[:80]}...")
     try:
-        result = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
-        if result.returncode != 0:
-            logger.error(f"Search failed: {result.stderr}")
-            return {}
-        with open(output_file) as f:
-            return json.load(f)
-    except subprocess.TimeoutExpired:
-        logger.error(f"Search timed out for: {query[:50]}")
-        return {}
+        app = get_firecrawl()
+        results = app.search(query, limit=limit)
+        # Convert SearchData object to list of dicts
+        web_results = results.web if hasattr(results, "web") and results.web else []
+        data = [
+            {
+                "url": r.url,
+                "title": r.title or "",
+                "description": r.description or "",
+            }
+            for r in web_results
+        ]
+        with open(output_file, "w") as f:
+            json.dump(data, f, indent=2)
+        return data
     except Exception as e:
         logger.error(f"Search error: {e}")
-        return {}
+        return []
 
 
-def extract_leads_from_results(data: dict, role: str, industry: str) -> list[dict]:
+def extract_leads_from_results(data: list, role: str, industry: str) -> list[dict]:
     """Extract lead info from firecrawl search results."""
     leads = []
-    results = data.get("data", [])
-    if isinstance(data.get("data"), dict):
-        results = data["data"].get("web", [])
+    results = data if isinstance(data, list) else []
 
     for r in results:
-        url = r.get("url", r.get("link", ""))
+        url = r.get("url", "")
         if not url or "linkedin.com/in/" not in url:
             continue
 
@@ -150,7 +156,7 @@ def find_leads(limit_per_query: int = 10) -> list[dict]:
         if not data:
             continue
 
-        leads = extract_leads_from_results(data, search["role"], search["industry"])
+        leads = extract_leads_from_results(data, search["role"], search["industry"])  # type: ignore
 
         for lead in leads:
             if lead["linkedin_url"] not in seen_urls and lead["name"]:
