@@ -3,7 +3,8 @@
 PROJECT_DIR="/Users/Priscilla/Downloads/suss_openclaw_export/suss_openclaw"
 PYTHON="/usr/bin/python3"
 LOG="$PROJECT_DIR/logs/daily_update.log"
-GITHUB_TOKEN="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"
+# Set GITHUB_TOKEN in your environment or .env file — never hardcode here
+GITHUB_TOKEN="${GITHUB_TOKEN:-}"
 
 mkdir -p "$PROJECT_DIR/logs"
 echo "=== Daily update started: $(date) ===" >> "$LOG"
