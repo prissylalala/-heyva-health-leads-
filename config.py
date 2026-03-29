@@ -2,7 +2,7 @@ import os
 
 # Search filters
 TARGET_TITLES = ["HR Director", "CFO", "Chief Financial Officer", "Head of HR"]
-TARGET_INDUSTRIES = ["Oil & Gas", "Technology", "MNC"]
+TARGET_INDUSTRIES = ["Oil & Gas", "Technology", "MNC", "E-Commerce", "FMCG", "Banking & Finance"]
 TARGET_CRITERIA = ["insurance", "health reimbursement", "employee benefits"]
 
 # Rate limiting

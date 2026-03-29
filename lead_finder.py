@@ -58,6 +58,81 @@ SEARCH_QUERIES = [
         "role": "hr",
         "industry": "MNC",
     },
+    # ── E-Commerce ────────────────────────────────────────────────────────────
+    {
+        "query": 'site:id.linkedin.com/in "HR Director" OR "People Director" "e-commerce" OR "ecommerce" OR "marketplace" Indonesia Jakarta Bekasi Tangerang',
+        "role": "hr",
+        "industry": "E-Commerce",
+    },
+    {
+        "query": 'site:id.linkedin.com/in "CFO" OR "Finance Director" "e-commerce" OR "ecommerce" OR "marketplace" Indonesia "employee benefit" OR "health"',
+        "role": "cfo",
+        "industry": "E-Commerce",
+    },
+    {
+        "query": 'site:id.linkedin.com/in "HR Director" OR "Head of HR" Tokopedia OR Shopee OR Lazada OR Traveloka OR Bukalapak Indonesia',
+        "role": "hr",
+        "industry": "E-Commerce",
+    },
+    # ── FMCG ──────────────────────────────────────────────────────────────────
+    {
+        "query": 'site:id.linkedin.com/in "HR Director" OR "People Director" FMCG Indonesia "employee wellness" OR "health benefit" Jakarta Bekasi',
+        "role": "hr",
+        "industry": "FMCG",
+    },
+    {
+        "query": 'site:id.linkedin.com/in "CFO" OR "Finance Director" FMCG "consumer goods" Indonesia "employee benefit" OR "insurance"',
+        "role": "cfo",
+        "industry": "FMCG",
+    },
+    {
+        "query": 'site:id.linkedin.com/in "HR Director" Unilever OR Nestle OR Danone OR "Coca-Cola" OR Indofood OR Wings OR "P&G" Indonesia',
+        "role": "hr",
+        "industry": "FMCG",
+    },
+    # ── Banking & Finance ──────────────────────────────────────────────────────
+    {
+        "query": 'site:id.linkedin.com/in "HR Director" OR "Head of HR" banking OR "financial services" Indonesia Jakarta "employee health" OR "wellness"',
+        "role": "hr",
+        "industry": "Banking & Finance",
+    },
+    {
+        "query": 'site:id.linkedin.com/in "CFO" OR "Finance Director" banking OR "financial services" Indonesia "employee benefit" OR "health insurance"',
+        "role": "cfo",
+        "industry": "Banking & Finance",
+    },
+    {
+        "query": 'site:id.linkedin.com/in "HR Director" "BRI" OR "BCA" OR "Mandiri" OR "BNI" OR "CIMB" OR "Danamon" OR "Permata" Indonesia',
+        "role": "hr",
+        "industry": "Banking & Finance",
+    },
+    {
+        "query": 'site:id.linkedin.com/in "HR Director" OR "People Director" "insurance" OR "multifinance" OR "fintech" Indonesia Jakarta "wellbeing" OR "benefit"',
+        "role": "hr",
+        "industry": "Banking & Finance",
+    },
+    # ── JABODETABEK & Banten geo-targeted ────────────────────────────────────
+    {
+        "query": 'site:id.linkedin.com/in "HR Director" Indonesia Bekasi OR Depok OR Bogor OR Tangerang OR Banten "employee wellness" OR "health benefit"',
+        "role": "hr",
+        "industry": "MNC",
+    },
+    {
+        "query": 'site:id.linkedin.com/in "HR Director" OR "People Director" Banten Indonesia "employee health" OR "wellness program" OR "benefit"',
+        "role": "hr",
+        "industry": "Manufacturing",
+    },
+    # ── Medan ─────────────────────────────────────────────────────────────────
+    {
+        "query": 'site:id.linkedin.com/in "HR Director" OR "Head of HR" Medan Indonesia "employee benefit" OR "health" OR "wellness"',
+        "role": "hr",
+        "industry": "MNC",
+    },
+    {
+        "query": 'site:id.linkedin.com/in "CFO" OR "Finance Director" Medan Indonesia "employee" OR "benefit" OR "insurance"',
+        "role": "cfo",
+        "industry": "Manufacturing",
+    },
 ]
 
 

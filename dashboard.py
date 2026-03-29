@@ -72,6 +72,9 @@ INDONESIA_CITIES = {
     "batam":      {"lat": 1.0457,   "lon": 104.0305, "label": "Batam"},
     "manado":     {"lat": 1.4748,   "lon": 124.8421, "label": "Manado"},
     "pekanbaru":  {"lat": 0.5071,   "lon": 101.4478, "label": "Pekanbaru"},
+    "banten":     {"lat": -6.1200,  "lon": 106.1503, "label": "Banten"},
+    "serang":     {"lat": -6.1200,  "lon": 106.1503, "label": "Banten"},
+    "cilegon":    {"lat": -6.0025,  "lon": 106.0513, "label": "Banten"},
 }
 INDONESIA_SIGNALS = ["indonesia", "jakarta", "surabaya", "bandung", "bali", "medan", "indonesian"]
 
@@ -132,18 +135,22 @@ HEALTH_GENEROSITY_KEYWORDS = [
     "well-being", "health culture", "healthy workplace",
 ]
 INDUSTRY_SCORES = {
-    "oil_gas":       (["oil", "gas", "energy", "petroleum", "refinery", "mining", "petrochemical"], 25),
-    "pharma_health": (["pharma", "pharmaceutical", "health", "medical", "hospital", "biotech", "clinic"], 24),
-    "mnc":           (["multinational", "mnc", "global", "international", "unilever", "reckitt", "danone", "nestle", "shell", "chevron", "exxon"], 22),
-    "manufacturing": (["manufacturing", "factory", "production", "industrial", "fmcg", "consumer goods", "textile", "automotive"], 20),
-    "tech":          (["technology", "tech", "software", "it ", "digital", "startup", "saas", "fintech", "e-commerce", "ecommerce"], 18),
-    "hospitality":   (["hospitality", "hotel", "resort", "tourism", "travel", "airline", "catering", "restaurant", "leisure"], 18),
-    "real_estate":   (["real estate", "property", "developer", "construction", "infrastructure", "realty"], 15),
-    "media_news":    (["media", "news", "publishing", "broadcast", "television", "radio", "journalist", "entertainment", "advertising"], 15),
-    "finance":       (["finance", "financial", "banking", "bank", "investment", "insurance company", "asset management"], 18),
+    "oil_gas":         (["oil", "gas", "energy", "petroleum", "refinery", "mining", "petrochemical"], 25),
+    "pharma_health":   (["pharma", "pharmaceutical", "health", "medical", "hospital", "biotech", "clinic"], 24),
+    "mnc":             (["multinational", "mnc", "global", "international", "unilever", "reckitt", "danone", "nestle", "shell", "chevron", "exxon"], 22),
+    "banking_finance": (["banking", "bank", "bri", "bca", "mandiri", "bni", "cimb", "danamon", "permata", "financial services", "multifinance", "insurance", "asset management", "investment"], 22),
+    "fmcg":            (["fmcg", "consumer goods", "fast moving", "unilever", "nestle", "danone", "indofood", "wings", "coca-cola", "p&g", "procter"], 20),
+    "ecommerce":       (["e-commerce", "ecommerce", "marketplace", "tokopedia", "shopee", "lazada", "traveloka", "bukalapak", "blibli", "gojek", "grab"], 20),
+    "manufacturing":   (["manufacturing", "factory", "production", "industrial", "textile", "automotive", "cement", "steel"], 20),
+    "tech":            (["technology", "tech", "software", "it ", "digital", "startup", "saas", "fintech"], 18),
+    "hospitality":     (["hospitality", "hotel", "resort", "tourism", "travel", "airline", "catering", "restaurant", "leisure"], 18),
+    "real_estate":     (["real estate", "property", "developer", "construction", "infrastructure", "realty"], 15),
+    "media_news":      (["media", "news", "publishing", "broadcast", "television", "radio", "journalist", "entertainment", "advertising"], 15),
+    "finance":         (["finance", "financial", "cfo", "treasury", "accounting"], 18),
 }
 INDUSTRY_LABELS = {
     "oil_gas": "Oil & Gas", "pharma_health": "Pharma / Health", "mnc": "MNC",
+    "banking_finance": "Banking & Finance", "fmcg": "FMCG", "ecommerce": "E-Commerce",
     "manufacturing": "Manufacturing", "tech": "Tech", "hospitality": "Hospitality",
     "real_estate": "Real Estate", "media_news": "Media & News", "finance": "Finance", "other": "Other",
 }
