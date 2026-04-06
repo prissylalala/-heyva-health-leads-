@@ -396,17 +396,61 @@ def render_lead_detail(lead, sc, track, url, key_prefix, tracking):
             index=STATUSES.index(status) if status in STATUSES else 0,
             key=f"{key_prefix}_status"
         )
-        new_notes = st.text_area("Notes", track.get("notes", ""), height=120, key=f"{key_prefix}_notes")
+        new_notes = st.text_area("Notes", track.get("notes", ""), height=80, key=f"{key_prefix}_notes")
         contact_date_val = track.get("contacted_date", "")
         new_date = st.date_input(
             "Date Contacted",
             value=datetime.strptime(contact_date_val, "%Y-%m-%d").date() if contact_date_val else None,
             key=f"{key_prefix}_date",
         )
+
+        st.markdown("---")
+        st.markdown("### Contact Details")
+
+        # Email — pre-filled with guess, fully editable
+        guessed_email = lead.get("email_guess", "")
+        saved_email = track.get("email", guessed_email)
+        new_email = st.text_input(
+            "📧 Email",
+            value=saved_email,
+            key=f"{key_prefix}_email",
+            help="Pre-filled with a guess based on name + company. Edit if incorrect."
+        )
+        if guessed_email and saved_email == guessed_email:
+            st.caption("⚠️ Estimated — please verify before sending")
+
+        # Phone — always manual
+        new_phone = st.text_input(
+            "📞 Phone",
+            value=track.get("phone", ""),
+            placeholder="+62 8xx xxxx xxxx",
+            key=f"{key_prefix}_phone",
+        )
+
+        st.markdown("---")
+
+        # Social activity summary
+        li_posts = lead.get("linkedin_posts_scraped", [])
+        tw_posts = lead.get("twitter_posts_scraped", [])
+        if li_posts or tw_posts:
+            st.markdown("### 📱 Social Activity")
+            if li_posts:
+                st.markdown("**LinkedIn Posts:**")
+                for p in li_posts[:3]:
+                    st.markdown(f"> {p[:200]}")
+            if tw_posts:
+                st.markdown("**Twitter/X Posts:**")
+                for p in tw_posts[:3]:
+                    st.markdown(f"> {p[:200]}")
+        else:
+            st.caption("💡 Run `python3 run_enrichment.py` to pull LinkedIn posts & Twitter activity")
+
         if st.button("💾 Save", key=f"{key_prefix}_save"):
             tracking[url] = {
                 "status": new_status, "notes": new_notes,
                 "contacted_date": new_date.isoformat() if new_date else "",
+                "email": new_email,
+                "phone": new_phone,
                 "updated_at": datetime.now().isoformat(),
             }
             save_tracking(tracking)
